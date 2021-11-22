@@ -3,6 +3,7 @@
 echo "========================= begin $0 ==========================="
 source make.env
 source public_funcs
+source private_funcs
 init_work_env
 check_k510
 
@@ -32,6 +33,10 @@ OP_ROOT_TGZ="openwrt-armvirt-64-default-rootfs.tar.gz"
 OPWRT_ROOTFS_GZ="${PWD}/${OP_ROOT_TGZ}"
 check_file ${OPWRT_ROOTFS_GZ}
 echo "Use $OPWRT_ROOTFS_GZ as openwrt rootfs!"
+
+# 备份文件地址
+BACKUP_TGZ="${PWD}/openwrt-backup.tar.gz"
+check_file $BACKUP_TGZ
 
 # 目标镜像文件
 TGT_IMG="${WORK_DIR}/openwrt_${SOC}_${BOARD}_${OPENWRT_VER}_k${KERNEL_VERSION}${SUBVER}.img"
@@ -185,6 +190,7 @@ adjust_kernel_env
 copy_uboot_to_fs
 write_release_info
 write_banner 
+restore_backup
 config_first_run
 create_snapshot "etc-000"
 write_uboot_to_disk

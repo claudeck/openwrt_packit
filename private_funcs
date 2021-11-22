@@ -1,0 +1,12 @@
+#!/bin/bash
+
+function restore_backup() {
+    TGT_BACKUP=${TEMP_DIR}/tgt_backup
+    echo "The target backup directory is : [$TGT_BACKUP]"
+    echo -n "释放 Openwrt backup 压缩包 ... " (
+        cd $TGT_BACKUP && tar -xzf "$BACKUP_TGZ"  && sync
+    )
+    echo -n "复制备份文件" (
+        cp -rf ${TGT_BACKUP}/* $TGT_ROOT/
+    )
+}

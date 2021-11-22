@@ -2,6 +2,8 @@
 
 function restore_backup() {
     TGT_BACKUP=${TEMP_DIR}/tgt_backup
+    mkdir $TGT_BACKUP
+    
     echo "The target backup directory is : [$TGT_BACKUP]"
     
     echo -n "释放 Openwrt backup 压缩包 ... " 
